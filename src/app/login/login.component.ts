@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { json } from 'body-parser';
 import { response } from 'express';
 
 @Component({
@@ -14,12 +15,6 @@ export class LoginComponent implements OnInit {
     password: ''
   };
 
-  userData = {
-    id: '',
-    username: '',
-    password: ''
-  }
-
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -33,7 +28,7 @@ export class LoginComponent implements OnInit {
     .then((response) => { 
       console.log('Success');
       localStorage.clear();
-      localStorage.setItem("user", JSON.stringify(response.user_data));
+      localStorage.setItem("user", JSON.stringify(response));
       this.router.navigate(['/account']);
     })
   }

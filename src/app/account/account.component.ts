@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-account',
@@ -8,12 +9,22 @@ import { Component, OnInit } from '@angular/core';
 export class AccountComponent implements OnInit {
 
   userValid = false;
-  user = localStorage.getItem("user");
+  roleOfUser = '';
+  userInfo: any;
+  userObject: any;
 
-  constructor() { 
+  constructor(private httpService: HttpService) { 
     if (localStorage.getItem("user") != undefined) {
       this.userValid = true;
     }
+  }
+
+  userRole(){ //check the role of the logged in user
+    this.userInfo = localStorage.getItem("user"); //get user info from storage
+    this.userObject = JSON.parse(this.userInfo); //convert back to json object
+    this.roleOfUser = this.userObject.role //get the users role
+    //console.log(this.roleOfUser);
+    return this.roleOfUser;
   }
 
 

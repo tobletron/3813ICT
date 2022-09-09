@@ -1,9 +1,41 @@
-<h1> Account Page </h1>
 <div *ngIf="!userValid">
     <p>Please log in</p>
 </div>
+
 <div *ngIf="userValid">
 
+    <div>
+        <h1>Groups</h1>
+        <ul>
+            <li> <!-- This will need to be a for loop that iterates through the list of groups file -->
+                <a href="" [routerLink]="['/group', 1]" class="heading">
+                    <h2>Gaming</h2>
+                </a> 
+                <p>                       
+                     <a *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'" href="" class="optional">Remove Group</a>
+                </p>
+            </li>
+            <li>
+                <a href="" [routerLink]="['/group', 2]" class="heading">
+                    <h2>Anime</h2>
+                </a> 
+                <p>                       
+                    <a *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'" href="" class="optional">Remove Group</a>
+               </p>        
+            </li>
+        </ul>
+        <button *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'">Create New Group</button>
+    </div>
+
+    <div *ngIf="roleOfUser == 'SuperAdmin'"> 
+
+    </div>
+
+    <div *ngIf="roleOfUser == 'GroupAdmin'"> </div>
+
+    <div *ngIf="roleOfUser == 'GroupAssis'"> </div>
+
+    <div *ngIf="roleOfUser == 'Member'"> </div>
 
 
 
@@ -19,7 +51,8 @@
 
 
 
-    
+
+
 </div>
 
 

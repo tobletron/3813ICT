@@ -13,6 +13,7 @@ const fs = require("fs");
 const users = require("./data/user.json");
 
 const bodyParser = require("body-parser");
+const { group } = require("console");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -34,6 +35,7 @@ app.post("/api/auth", (req, res) => {
         console.log("user logged in: " + user_data.username);
     }
 });
+
 
 //test by going to localhost:3000 to see if server working
 app.get("/", (req, res) => {

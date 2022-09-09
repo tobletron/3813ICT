@@ -1,6 +1,26 @@
 h1 {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}
+
+h2 {
     text-align: center;
     margin: auto;
+}
+
+.top {
+    width: 75%;
+    margin: auto;
+    align-items: center;
+    background-color: lightgrey;
+}
+
+.bottom {
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    padding-top: 200px;
 }
 
 ul {
