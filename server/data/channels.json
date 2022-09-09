@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "groupID": 1,
+        "name": "xbox"
+    },
+    {
+        "id": 2,
+        "groupID": 1,
+        "name": "playstation"
+    },
+    {
+        "id": 3,
+        "groupID": 2,
+        "name": "onepiece"
+    },
+    {
+        "id": 4,
+        "groupID": 3,
+        "name": "naruto"
+    }
+]
