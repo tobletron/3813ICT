@@ -1,0 +1,31 @@
+nav {
+    text-align: center;
+    margin: auto;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  a {
+    display: block;
+    padding: 8px;
+    background-color: #dddddd;
+  }
+
+a:link {
+    color: black;
+  }
+  
+  a:visited {
+    color: black;
+  }
+  
+  a:hover {
+    color: black;
+  }
+  
+  a:active {
+    color: black;
+  }

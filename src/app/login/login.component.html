@@ -1,1 +1,10 @@
-<p>login works!</p>
+
+<form action="http://localhost:3000/api/auth" method="POST" (ngSubmit)="submit()">
+    <label>Username:</label>
+    <input type="text" [(ngModel)]="user.username" name="username">
+
+    <label>Password:</label>
+    <input type="text" [(ngModel)]="user.password" name="password">
+
+    <input type="submit" value="submit">
+</form>

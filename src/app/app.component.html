@@ -1,1 +1,19 @@
-<h1>Home</h1>
+<nav>
+  <ul>
+    <li>  
+      <a href="#" routerLink="/login" class="navBarItem">Login</a>
+    </li>
+    <li>  
+      <a href="#" routerLink="/account" class="navBarItem">Account</a>
+    </li>
+    <li>  
+      <a *ngIf="userValid" role="button" (click)="logout()">Logout</a>
+    </li>
+  </ul>
+
+</nav>
+
+
+<div>
+  <router-outlet></router-outlet>
+</div>
