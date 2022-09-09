@@ -43,9 +43,6 @@ app.post("/api/group", (req, res) => {
   }
 });
 
-
-
-
 //test by going to localhost:3000 to see if server working
 app.get("/", (req, res) => {
     res.send("server is working");
