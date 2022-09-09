@@ -11,13 +11,12 @@ const url = require('url');
 const fs = require("fs");
 
 const users = require("./data/user.json");
+const groups = require("./data/groups.json");
+const channels = require("./data/channels.json");
 
 const bodyParser = require("body-parser");
-const { group } = require("console");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-var loggedIn = false;
 
 //serve on port 3000
 var PORT = 3000;
@@ -35,6 +34,16 @@ app.post("/api/auth", (req, res) => {
         console.log("user logged in: " + user_data.username);
     }
 });
+
+app.post("/api/group", (req, res) => {
+  var group_data = groups.find((group) => group.id == req.body.groupID);
+  console.log("here");
+  if (group_data) { 
+    res.send(group_data);
+  }
+});
+
+
 
 
 //test by going to localhost:3000 to see if server working

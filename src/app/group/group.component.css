@@ -1,21 +1,32 @@
 h1 {
-    text-align: center;
-    margin: auto;
-}
-
-h2 {
   text-align: center;
   margin: auto;
 }
 
-ul {
-    margin: auto;
-    list-style: none;
-    text-align: center;
+.title {
+  padding: 30px;
 }
 
-li {
-    padding-bottom: 50px;
+.channelList {
+  width: 20%;
+  float: left;
+  background-color: #DCD7C9;
+  height: 75vh;
+  border: 1px;
+  border-color: #2C3639;
+  border-style: solid;
+}
+
+h2 {
+  text-align: center;
+}
+
+.chatroom {
+  border: 1px;
+  border-color: #2C3639;
+  border-style: solid;
+  margin-left: 20%;
+  height: 75vh;
 }
 
 a:link {

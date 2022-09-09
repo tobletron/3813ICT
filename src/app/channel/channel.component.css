@@ -1,36 +1,32 @@
-h1 {
-    width: 100%;
-    margin: auto;
-    text-align: center;
+h1, h2 {
+  margin: auto;
+  text-align: center;
 }
 
-h2 {
-    text-align: center;
-    margin: auto;
+.messageArea {
+  height: 60vh;
+  width: 75%;
+  text-align: center;
+  background-color: lightgrey;
+  margin: auto;
 }
 
-.top {
-    width: 75%;
-    margin: auto;
-    align-items: center;
-    background-color: lightgrey;
+.overflow {
+  max-height: 100%;
+  overflow:hidden; 
+  overflow-y:scroll;
 }
 
-.bottom {
-    align-items: center;
-    text-align: center;
-    margin: auto;
-    padding-top: 200px;
+.messageBox {
+  margin: auto;
+  text-align: center;
+  padding: 15px;
 }
 
-ul {
-    margin: auto;
-    list-style: none;
-    text-align: center;
-}
-
-li {
-    padding-bottom: 50px;
+.message {
+  border: 1px;
+  border-color: black;
+  border-style: solid;
 }
 
 a:link {

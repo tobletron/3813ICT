@@ -1,0 +1,15 @@
+form {
+    width: 30%;
+    margin: auto;
+    margin-top: 20vh;
+    padding-top: 25px;
+    border: 1px;
+    border-color: black;
+    border-style: solid;
+}
+
+div {
+    text-align: center;
+    padding: 10px;
+}
+

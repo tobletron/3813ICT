@@ -5,30 +5,34 @@
 <div *ngIf="userValid">
 
     <div>
-        <h1>Groups</h1>
-        <ul>
-            <li> <!-- This will need to be a for loop that iterates through the list of groups file -->
+        <div class="title">
+            <h1>Welcome Back {{username}}!</h1>
+            <p>Membership level: {{roleOfUser}}</p> 
+            <button *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'">Create New Group</button>   
+        </div>
+        <nav class="groupList">
+            <h2>Groups</h2>
+            <div>
                 <a href="" [routerLink]="['/group', 1]" class="heading">
-                    <h2>Gaming</h2>
+                    <h3>Gaming</h3>
                 </a> 
                 <p>                       
                      <a *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'" href="" class="optional">Remove Group</a>
                 </p>
-            </li>
-            <li>
+            </div>
+            <div>
                 <a href="" [routerLink]="['/group', 2]" class="heading">
-                    <h2>Anime</h2>
+                    <h3>Anime</h3>
                 </a> 
                 <p>                       
                     <a *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'" href="" class="optional">Remove Group</a>
-               </p>        
-            </li>
-        </ul>
-        <button *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'">Create New Group</button>
+               </p>  
+            </div>
+        </nav>
     </div>
 
     <div *ngIf="roleOfUser == 'SuperAdmin'"> 
-
+        
     </div>
 
     <div *ngIf="roleOfUser == 'GroupAdmin'"> </div>

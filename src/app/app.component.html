@@ -4,10 +4,10 @@
       <a href="#" routerLink="/login" class="navBarItem">Login</a>
     </li>
     <li>  
-      <a href="#" routerLink="/account" class="navBarItem">Account</a>
+      <a href="#" (click)="checkLogin()" routerLink="/account" class="navBarItem">Account</a>
     </li>
     <li>  
-      <a *ngIf="userValid" role="button" (click)="logout()">Logout</a>
+      <a role="button" (click)="logout()">Logout</a>
     </li>
   </ul>
 

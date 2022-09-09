@@ -1,6 +1,10 @@
 nav {
     text-align: center;
     margin: auto;
+    background-color: #DCD7C9;
+    border: 1px;
+    border-color: #2C3639;
+    border-style: solid;
 }
 
 ul {
@@ -11,21 +15,27 @@ ul {
   a {
     display: block;
     padding: 8px;
-    background-color: #dddddd;
   }
 
 a:link {
-    color: black;
+    color: #2C3639;
+    text-decoration: none;
   }
   
   a:visited {
-    color: black;
+    color: #2C3639;
+    text-decoration: none;
+
   }
   
   a:hover {
-    color: black;
+    color: #2C3639;
+    text-decoration: none;
+    background-color: #A5C9CA;
   }
   
   a:active {
-    color: black;
+    color: #2C3639;
+    text-decoration: none;
+
   }

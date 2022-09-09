@@ -22,7 +22,14 @@ export class AppComponent {
 
   logout() {
     localStorage.clear();
-    console.log("logged out");
+    alert("Successfully logged out");
     this.router.navigate(['/login']);
+  }
+
+  checkLogin() {
+    if (!this.userValid) {
+      alert("Please log in first");
+      this.router.navigate(['/login']);
+    }
   }
 }

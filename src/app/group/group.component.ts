@@ -12,11 +12,13 @@ export class GroupComponent implements OnInit {
   roleOfUser = '';
   userInfo: any;
   userObject: any;
+  userGroup: any;
+  groupID: any;
 
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    let groupID = this.activatedRoute.snapshot.params['id']; //access the group id via url
+    this.groupID = this.activatedRoute.snapshot.params['id']; //access the group id via url
   }
 
   getChannels() { //use the group id to select channels associated with this group

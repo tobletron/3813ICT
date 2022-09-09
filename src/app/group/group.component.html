@@ -1,10 +1,11 @@
-<h1> Group Name (accessedd via query using id from url) </h1>
-
-<div>
-    <h2>Channels you have access to:</h2>
+<div class="title">
+    <h1> Group Name </h1>
+</div>
+<div class="channelList">
+    <h2>Channels:</h2>
     <ul>
         <li> <!-- This will need to be a for loop that iterates through the list of groups file -->
-            <a href="" routerLink="/channel">xbox</a> 
+            <a href="1" routerLink="/channel">xbox</a> 
             <p>
                 <a *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'" href="" class="optional">
                     <h3>Remove Channel</h3>
@@ -12,7 +13,7 @@
             </p>
         </li>
         <li>
-            <a href="" routerLink="/channel">playstation</a> 
+            <a href="2" routerLink="/channel">playstation</a> 
             <p>
                 <a *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'" href="" class="optional">
                     <h3>Remove Channel</h3>
@@ -21,8 +22,12 @@
         </li>
     </ul>
     <button *ngIf="roleOfUser == 'SuperAdmin' ||
-                   roleOfUser == 'GroupAdmin' || 
-                   roleOfUser == 'GroupAssis'">
+                    roleOfUser == 'GroupAdmin' || 
+                    roleOfUser == 'GroupAssis'">
         Create New Channel
     </button>
 </div>
+<div class="chatroom">
+    <app-channel></app-channel>
+</div>
+

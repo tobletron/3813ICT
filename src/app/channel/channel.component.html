@@ -1,12 +1,15 @@
-<h1>Group name</h1>
 <h2>Channel name</h2>
 
-
-<div *ngFor="let message of messages" class="top">   
-    <p>{{message}}</p>
-    <span>00:00pm</span>
+<div class="messageArea">
+    <div class="overflow">
+        <div *ngFor="let message of messages" class="message">
+            <p>User: {{message}}</p>
+            <span>00:00pm</span>
+        </div>
+    </div>
 </div>
-<div class="bottom">
+
+<div class="messageBox">
     <input type = 'text' [(ngModel)] ='newMessage' name="newMessage"/>
     <button type = 'submit' (click)="post()">Enter</button>
 </div>
