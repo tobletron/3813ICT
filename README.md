@@ -2,6 +2,11 @@
 
 Standard practice version control systems were used throughout the development of the first phase of the assignment. These practices include, initialisation of a local git repository, regular commits throughout the development of the project to the local repository, and the publishing of the local repository onto a public remote repository hosted on github. To ensure the changes made to the project throughout the entire development process, commit messages were designed to describe the changes made upon each commit. By doing this, if there was a scenario where a previous version of the project was required, it would be easier to understand both the state of the current version and reduce the number of changes between versions to select from. While these practices were implemented throughout the project, the project is an individual assignment, which simplifies the implementation of functionality as there is no need to merge several versions of code regularly. Nevertheless, by implementing these version control practices, there is always opportunity for project recovery in the case of file corruption, hardware damage, etc.
 
+The git repository may be viewed at :
+
+https://github.com/tobletron/Assignment
+
+
 #Data Structures
 Several data structures are used throughout the project on both the client side and the server side. These data structures include: 
 -	Users
