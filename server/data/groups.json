@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "Gaming group",
+        "capacity": 5,
+        "members": ["1, 2, 3"]
+    },
+    {
+        "id": 2,
+        "name": "Anime Group",
+        "capacity": 5,
+        "members": ["1, 3, 4"]
+    }
+]
