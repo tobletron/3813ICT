@@ -1,50 +1,28 @@
-var express = require("express"); //express
-var app = express();
-
-var http = require("http").Server(app); //http
-
+const express = require("express"); //express
+const app = express();
 const cors = require("cors"); //cross origin resource sharing 
-app.use(cors());
-
-const https = require("https");
-const url = require('url');
+var http = require("http").Server(app); //http
 const fs = require("fs");
 
-const users = require("./data/user.json");
-const groups = require("./data/groups.json");
-const channels = require("./data/channels.json");
+const server = require('./listen.js'); //listen.js
 
-const bodyParser = require("body-parser");
+const bodyParser = require("body-parser"); //parse requests
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors());
 
-//serve on port 3000
-var PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+server.listen(http, 3000); //start server
+
+const MongoClient = require('mongodb').MongoClient;
+const url = "mongodb://localhost:27017";
+const dbName = "myAssignmentDb";
+
+MongoClient.connect(url, function(err, client) {
+  if (err) throw err;
+  const db = client.db(dbName);
+
+  require('./routes/login')(app, db);
+  require('./routes/getUsers')(app, db);
 });
-
-
-//user login response
-app.post("/api/auth", (req, res) => {
-    var user_data = users.find((user) => user.username == req.body.username && user.password == req.body.password);
-    //console.log(user_data);
-    if (user_data){ //if the user is valid
-        res.send(user_data);
-        console.log("user logged in: " + user_data.username);
-    }
-});
-
-app.post("/api/group", (req, res) => {
-  var group_data = groups.find((group) => group.id == req.body.groupID);
-  console.log("here");
-  if (group_data) { 
-    res.send(group_data);
-  }
-});
-
-//test by going to localhost:3000 to see if server working
-app.get("/", (req, res) => {
-    res.send("server is working");
-  });
 

@@ -7,7 +7,7 @@
       <a href="#" (click)="checkLogin()" routerLink="/account" class="navBarItem">Account</a>
     </li>
     <li>  
-      <a role="button" (click)="logout()">Logout</a>
+      <a *ngIf="userValid" role="button" (click)="logout()">Logout</a>
     </li>
   </ul>
 

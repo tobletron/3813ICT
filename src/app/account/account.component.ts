@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { response } from 'express';
-import { HttpService } from '../http.service';
+import { UserService } from '../user-service.service'
+import { UserModel } from '../user.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-account',
@@ -9,31 +12,44 @@ import { HttpService } from '../http.service';
 })
 export class AccountComponent implements OnInit {
 
+  users!: UserModel[];
+
   userValid = false;
   roleOfUser = '';
   userInfo: any;
   userObject: any;
   username = '';
 
-  constructor(private httpService: HttpService) { 
-    if (localStorage.getItem("user") != undefined) {
+  url = "http://localhost:3000";
+
+
+  constructor(private userService: UserService, private router: Router, private httpClient: HttpClient) { 
+    if (sessionStorage.getItem("username") != undefined) {
       this.userValid = true;
-      this.userRole();
+      //this.userRole();
     }
   }
 
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
 
-  userRole(){ //check the role of the logged in user
-    this.userInfo = localStorage.getItem("user"); //get user info from storage
-    this.userObject = JSON.parse(this.userInfo); //convert back to json object
-    this.username = this.userObject.username; //get username
-    this.roleOfUser = this.userObject.role //get the users role
-    //console.log(this.roleOfUser);
-    return this.roleOfUser;
+ 
+
+  deleteUser(user: UserModel) {
+    this.userService.usersDelete({_id: user._id});
   }
+
+  // userRole(){ //check the role of the logged in user
+  //   this.httpClient.get(this.url + "/api/users").subscribe((data: any) => {
+  //     for (let i = 0; i < data.length; i++) {
+  //       if (data[i].username == this.user.username) {
+  //         console.log("username matches");
+  //         this.router.navigateByUrl('/account');
+  //       }
+  //     }
+  //   });
+  // }
   
 
 }

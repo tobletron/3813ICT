@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpService } from '../http.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Component({
   selector: 'app-login',
@@ -8,30 +14,40 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  user = {
-    username: '',
-    password: ''
-  };
+  username = "";
+  password:any = "";
+  userObject: any = {};
+  url = "http://localhost:3000";
 
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private httpClient: HttpClient) { }
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) { }
-
-  submit() { //posting json data to server for verification
-    fetch('http://localhost:3000/api/auth', {
-      method: 'POST',
-      headers: {'content-type': 'application/json'}, 
-      body: JSON.stringify(this.user),
-    })
-    .then((response) => response.json())
-    .then((response) => { 
-      console.log('Success');
-      localStorage.clear();
-      localStorage.setItem("user", JSON.stringify(response));
-      this.router.navigate(['/account']);
-    })
-  }
 
   ngOnInit(): void {
   }
+
+  submit() { 
+    this.userObject = { username: this.username, password: this.password };
+    console.log("attempting to log in: ", this.userObject);
+
+    this.httpClient.post(this.url + "/api/auth", JSON.stringify(this.userObject), httpOptions).subscribe((data: any) => {
+      if (data.valid) {
+        sessionStorage.setItem('username', data.username);
+        this.httpClient.get(this.url + "/api/users").subscribe((result: any) => {
+          for (let i = 0; i < result.length; i++) {
+            if (result[i].username == data.username) {
+              sessionStorage.setItem('role', result[i].role);
+              this.router.navigateByUrl('/account');
+            }
+          }
+        });
+      }
+      else {
+        alert("Incorrect username/password");
+      }
+      
+    });
+  }
+
+  
 
 }

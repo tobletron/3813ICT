@@ -14,14 +14,14 @@ export class AppComponent {
   user = localStorage.getItem("user");
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-    if (localStorage.getItem("user") != undefined) {
+    if (sessionStorage.getItem("username") != undefined) {
       this.userValid = true;
     }
    }
 
 
   logout() {
-    localStorage.clear();
+    sessionStorage.clear();
     alert("Successfully logged out");
     this.router.navigate(['/login']);
   }
