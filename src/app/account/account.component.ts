@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { response } from 'express';
 import { UserService } from '../user-service.service'
 import { UserModel } from '../user.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Component({
   selector: 'app-account',
@@ -12,44 +16,52 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AccountComponent implements OnInit {
 
-  users!: UserModel[];
+  username: string = "";
+  userRole: string = "";
+  users: any = [];
 
-  userValid = false;
-  roleOfUser = '';
-  userInfo: any;
-  userObject: any;
-  username = '';
+  userToDelete: any = {};
+
 
   url = "http://localhost:3000";
 
 
-  constructor(private userService: UserService, private router: Router, private httpClient: HttpClient) { 
-    if (sessionStorage.getItem("username") != undefined) {
-      this.userValid = true;
-      //this.userRole();
-    }
+  constructor(private userService: UserService, private router: Router, private httpClient: HttpClient) {
   }
 
 
   ngOnInit() {
+    if (!sessionStorage.getItem('username')) {
+      sessionStorage.clear();
+      alert("Please log in first");
+      this.router.navigateByUrl('/login');
+    }
+
+    this.username = sessionStorage.getItem('username')!;
+    this.userRole = sessionStorage.getItem('role')!;
+
+    if (this.userRole == "SuperAdmin") {
+
+      this.httpClient.get(this.url + "/api/getUsers").subscribe((result: any) => {
+        for (let i = 0; i < result.length; i++) {
+          this.users.push(result[i]);
+        }
+      });
+
+    }
   }
 
- 
-
-  deleteUser(user: UserModel) {
-    this.userService.usersDelete({_id: user._id});
+  deleteUser(user: any) {
+      console.log("attmpting to delete user: ", user);
+      this.httpClient.post(this.url + "/api/deleteUser", JSON.stringify(user), httpOptions).subscribe((data: any) => {
+        if (data == true) {
+          alert("User has been deleted");
+          window.location.reload();
+        }
+    });
   }
 
-  // userRole(){ //check the role of the logged in user
-  //   this.httpClient.get(this.url + "/api/users").subscribe((data: any) => {
-  //     for (let i = 0; i < data.length; i++) {
-  //       if (data[i].username == this.user.username) {
-  //         console.log("username matches");
-  //         this.router.navigateByUrl('/account');
-  //       }
-  //     }
-  //   });
-  // }
+
   
 
 }

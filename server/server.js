@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
+
 server.listen(http, 3000); //start server
 
 const MongoClient = require('mongodb').MongoClient;
@@ -22,7 +23,8 @@ MongoClient.connect(url, function(err, client) {
   if (err) throw err;
   const db = client.db(dbName);
 
-  require('./routes/login')(app, db);
-  require('./routes/getUsers')(app, db);
+  require('./routes/login')(app, db); //user authentication
+  require('./routes/getUsers')(app, db); //retrive list of all users
+  require('./routes/deleteUser')(app, db); //delete a user
 });
 

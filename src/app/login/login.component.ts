@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     this.httpClient.post(this.url + "/api/auth", JSON.stringify(this.userObject), httpOptions).subscribe((data: any) => {
       if (data.valid) {
         sessionStorage.setItem('username', data.username);
-        this.httpClient.get(this.url + "/api/users").subscribe((result: any) => {
+        this.httpClient.get(this.url + "/api/getUsers").subscribe((result: any) => {
           for (let i = 0; i < result.length; i++) {
             if (result[i].username == data.username) {
               sessionStorage.setItem('role', result[i].role);

@@ -5,8 +5,8 @@
     <div>
         <div class="title">
             <h1>Welcome Back {{username}}!</h1>
-            <p>Membership level: {{roleOfUser}}</p> 
-            <button *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'">Create New Group</button>   
+            <p>Membership level: {{userRole}}</p> 
+            <button *ngIf="userRole == 'SuperAdmin' || userRole == 'GroupAdmin'">Create New Group</button>   
         </div>
         <nav class="groupList">
             <h2>Groups</h2>
@@ -15,7 +15,7 @@
                     <h3>Gaming</h3>
                 </a> 
                 <p>                       
-                     <a *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'" href="" class="optional">Remove Group</a>
+                     <a *ngIf="userRole == 'SuperAdmin' || userRole == 'GroupAdmin'" href="" class="optional">Remove Group</a>
                 </p>
             </div>
             <div>
@@ -23,17 +23,16 @@
                     <h3>Anime</h3>
                 </a> 
                 <p>                       
-                    <a *ngIf="roleOfUser == 'SuperAdmin' || roleOfUser == 'GroupAdmin'" href="" class="optional">Remove Group</a>
+                    <a *ngIf="userRole == 'SuperAdmin' || userRole == 'GroupAdmin'" href="" class="optional">Remove Group</a>
                </p>  
             </div>
         </nav>
     </div>
 
-    <div *ngIf="roleOfUser == 'SuperAdmin'"> 
+    <div *ngIf="userRole == 'SuperAdmin'"> 
         <table>
             <thead>
                 <tr>
-                    <td>ID</td>
                     <td>Username</td>
                     <td>Email</td>
                     <td>Role</td>
@@ -42,7 +41,6 @@
             </thead>
             <tbody>
                 <tr *ngFor="let user of users">
-                    <td>{{ user._id }}</td>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.role }}</td>
@@ -53,11 +51,11 @@
         </table>
     </div>
 
-    <div *ngIf="roleOfUser == 'GroupAdmin'"> </div>
+    <div *ngIf="userRole == 'GroupAdmin'"> </div>
 
-    <div *ngIf="roleOfUser == 'GroupAssis'"> </div>
+    <div *ngIf="userRole == 'GroupAssis'"> </div>
 
-    <div *ngIf="roleOfUser == 'Member'"> </div>
+    <div *ngIf="userRole == 'Member'"> </div>
 
 
 
