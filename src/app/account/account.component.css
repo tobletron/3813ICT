@@ -32,3 +32,7 @@ a:link {
   a:active {
     color: black;
   }
+
+  .groupArea {
+    text-align: center;
+  }

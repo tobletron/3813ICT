@@ -8,6 +8,9 @@ import { LoginComponent } from './login/login.component';
 import { AccountComponent } from './account/account.component';
 import { GroupComponent } from './group/group.component';
 import { ChannelComponent } from './channel/channel.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminGroupComponent } from './admin-group/admin-group.component';
+import { AdminChannelComponent } from './admin-channel/admin-channel.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,10 @@ import { ChannelComponent } from './channel/channel.component';
     LoginComponent,
     AccountComponent,
     GroupComponent,
-    ChannelComponent
+    ChannelComponent,
+    AdminComponent,
+    AdminGroupComponent,
+    AdminChannelComponent
   ],
   imports: [
     BrowserModule,

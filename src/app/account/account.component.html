@@ -1,35 +1,30 @@
 
 
-<div >
-
-    <div>
+<div>
+    <div class="groupArea">
         <div class="title">
             <h1>Welcome Back {{username}}!</h1>
             <p>Membership level: {{userRole}}</p> 
-            <button *ngIf="userRole == 'SuperAdmin' || userRole == 'GroupAdmin'">Create New Group</button>   
         </div>
+
+        <!--  ALL MEMBERS - NAVIGATE TO GROUPS -->
         <nav class="groupList">
-            <h2>Groups</h2>
-            <div>
-                <a href="" [routerLink]="['/group', 1]" class="heading">
-                    <h3>Gaming</h3>
-                </a> 
-                <p>                       
-                     <a *ngIf="userRole == 'SuperAdmin' || userRole == 'GroupAdmin'" href="" class="optional">Remove Group</a>
-                </p>
+            <h2>Your Groups</h2>
+            <div *ngFor="let group of groups">
+                <h4>{{group.title}}</h4>
+                <button (click)="linkToGroup(group)">Enter</button>
+                <button *ngIf="(userRole == 'GroupAdmin') || (userRole == 'SuperAdmin')" (click)="deleteGroup(group)">Delete</button> 
             </div>
-            <div>
-                <a href="" [routerLink]="['/group', 2]" class="heading">
-                    <h3>Anime</h3>
-                </a> 
-                <p>                       
-                    <a *ngIf="userRole == 'SuperAdmin' || userRole == 'GroupAdmin'" href="" class="optional">Remove Group</a>
-               </p>  
-            </div>
+            
         </nav>
+        <!--  GROUP ADMIN + SUPER ADMIN ONLY - CREATE GROUPS -->
+        <div *ngIf="(userRole == 'GroupAdmin') || (userRole == 'SuperAdmin')"> 
+            <button (click)="createGroup()">Edit Groups</button>   
+        </div>
     </div>
 
-    <div *ngIf="userRole == 'SuperAdmin'"> 
+    <!--  SUPER ADMIN + GROUP ADMIN ONLY - USER DATA + CRUD -->
+    <div *ngIf="(userRole == 'GroupAdmin') || (userRole == 'SuperAdmin')"> 
         <table>
             <thead>
                 <tr>
@@ -44,35 +39,17 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.role }}</td>
-                    <td><button (click)="deleteUser(user)">Delete</button></td>
-                    <!--<td><button (click)="updateUser(user)">Update</button></td>-->
+                    <td *ngIf="userRole == 'SuperAdmin'"><button (click)="deleteUser(user)">Delete</button></td>
+                    <td><button (click)="updateUser(user)">Update</button></td>
                 </tr>
             </tbody>
         </table>
+        <button (click)="createUser()">Create a user</button>
     </div>
-
-    <div *ngIf="userRole == 'GroupAdmin'"> </div>
 
     <div *ngIf="userRole == 'GroupAssis'"> </div>
 
     <div *ngIf="userRole == 'Member'"> </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 
 

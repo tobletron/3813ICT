@@ -1,15 +1,11 @@
-<h2>Channel name</h2>
+<h2>
+    <button (click)="goBack()">Go Back</button>
+</h2>
+<h1>Welcome {{username}}, to the {{channelTitle}} channel</h1>
 
-<div class="messageArea">
-    <div class="overflow">
-        <div *ngFor="let message of messages" class="message">
-            <p>User: {{message}}</p>
-            <span>00:00pm</span>
-        </div>
+<div>
+    <div *ngFor="let message of messages">
+
     </div>
 </div>
 
-<div class="messageBox">
-    <input type = 'text' [(ngModel)] ='newMessage' name="newMessage"/>
-    <button type = 'submit' (click)="post()">Enter</button>
-</div>

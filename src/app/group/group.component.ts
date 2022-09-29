@@ -1,5 +1,10 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Component({
   selector: 'app-group',
@@ -8,29 +13,92 @@ import { ActivatedRoute} from '@angular/router';
 })
 export class GroupComponent implements OnInit {
 
-  userValid = false;
-  roleOfUser = '';
-  userInfo: any;
-  userObject: any;
-  userGroup: any;
-  groupID: any;
+  group: any = "";
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  url = "http://localhost:3000";
+
+
+  //logged in user data 
+  username = "";
+  userRole = "";
+
+  channels: any = [];
+
+  constructor( private router: Router, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
-    this.groupID = this.activatedRoute.snapshot.params['id']; //access the group id via url
+
+
+    //user authentication p1
+    if (!sessionStorage.getItem('username')) {
+      sessionStorage.clear();
+      alert("Please log in first");
+      this.router.navigateByUrl('/login');
+    }
+
+    if (!sessionStorage.getItem("group")) {
+      alert("error");
+      this.router.navigateByUrl("/account");
+    }
+
+    this.username = sessionStorage.getItem('username')!;
+    this.userRole = sessionStorage.getItem('role')!;
+    this.group = sessionStorage.getItem('group');
+
+    //get channels
+    this.httpClient.get(this.url + "/api/getChannels").subscribe((result: any) => {
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].groupName == this.group){
+          this.channels.push(result[i]);
+        }
+      }
+    });
+
   }
 
-  getChannels() { //use the group id to select channels associated with this group
-      //return list of channels to use in html
+  
+  createChannel() {
+    this.router.navigateByUrl("/adminChannel");
   }
 
-  userRole(){ //check the role of the logged in user
-    this.userInfo = localStorage.getItem("user"); //get user info from storage
-    this.userObject = JSON.parse(this.userInfo); //convert back to json object
-    this.roleOfUser = this.userObject.role //get the users role
-    //console.log(this.roleOfUser);
-    return this.roleOfUser;
+  removeGroup() {
+    //get groups
+    this.httpClient.get(this.url + "/api/getGroups").subscribe((result: any) => {
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].title == this.group){
+          this.httpClient.post(this.url + "/api/deleteGroup", JSON.stringify(result[i]), httpOptions).subscribe((data: any) => {
+            if (data == true) {
+              alert("successfully deleted group");
+              sessionStorage.removeItem('group');
+              this.router.navigateByUrl("/account");
+            }
+            else {
+              alert("error deleting group");
+            }
+          });
+        }
+      }
+    });
+    
+  }
+
+  deleteChannel(channel: any) {
+    this.httpClient.post(this.url + "/api/deleteChannel", JSON.stringify(channel), httpOptions).subscribe((data: any) => {
+      if (data == true) {
+        alert("Channel has been deleted");
+        window.location.reload();
+      }
+    });
+  }
+
+  goBack() {
+    sessionStorage.removeItem('group');
+    this.router.navigateByUrl("/account");
+  }
+
+  enterChannel(channel: any) {
+    sessionStorage.setItem("channel", channel.title);
+    this.router.navigateByUrl("/channel");
   }
 
 

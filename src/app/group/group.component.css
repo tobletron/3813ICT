@@ -3,31 +3,25 @@ h1 {
   margin: auto;
 }
 
-.title {
-  padding: 30px;
+.adminOps {
+  text-align: center;
+  margin: auto;
+  align-items: center;
 }
 
-.channelList {
-  width: 20%;
-  float: left;
-  background-color: #DCD7C9;
-  height: 75vh;
-  border: 1px;
-  border-color: #2C3639;
-  border-style: solid;
+button {
+  text-align: center;
+  margin: auto;
+  align-items: center;
 }
+
+
 
 h2 {
   text-align: center;
 }
 
-.chatroom {
-  border: 1px;
-  border-color: #2C3639;
-  border-style: solid;
-  margin-left: 20%;
-  height: 75vh;
-}
+
 
 a:link {
     color: black;
@@ -43,4 +37,19 @@ a:link {
   
   a:active {
     color: black;
+  }
+
+  table {
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
+
+tr {
+    text-decoration: solid;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
   }

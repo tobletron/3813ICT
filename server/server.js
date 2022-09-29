@@ -23,8 +23,22 @@ MongoClient.connect(url, function(err, client) {
   if (err) throw err;
   const db = client.db(dbName);
 
-  require('./routes/login')(app, db); //user authentication
-  require('./routes/getUsers')(app, db); //retrive list of all users
-  require('./routes/deleteUser')(app, db); //delete a user
+  //user routes
+  require('./routes/UserRoutes/login')(app, db); //user authentication
+  require('./routes/UserRoutes/getUsers')(app, db); //retrive list of all users
+  require('./routes/UserRoutes/deleteUser')(app, db); //delete a user
+  require('./routes/UserRoutes/insertUser')(app, db); //insert a user
+
+  //group routes
+  require('./routes/GroupRoutes/insertGroup')(app, db); //create a group
+  require('./routes/GroupRoutes/getGroups')(app, db); //retrive list of all groups
+  require('./routes/GroupRoutes/deleteGroup')(app, db); //delete a group
+
+  //channel routes
+  require('./routes/ChannelRoutes/insertChannel')(app, db); //create a channel
+  require('./routes/ChannelRoutes/getChannels')(app, db); //retrieve a list of all channels
+  require('./routes/ChannelRoutes/deleteChannel')(app, db); //delete a channel
+
+
 });
 

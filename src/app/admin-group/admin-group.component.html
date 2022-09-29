@@ -1,0 +1,40 @@
+<h1> Create a Group </h1>
+
+<form>
+    <label for="title">Group Title: </label>
+    <input type="text" name="title" [(ngModel)]="title"><br>
+
+    <label for="capacity">Group Capacity: </label>
+    <input type="number" name="capacity" [(ngModel)]="capacity"><br>
+
+    <label for="members">Add Members: </label>
+    <select name="members" [(ngModel)]="members" multiple>
+        <option *ngFor="let user of users" value="{{user.username}}">{{user.username}}</option>
+    </select><br>
+
+    <button (click)="createGroup()">Create group</button>
+</form>
+
+<h2>List of existing groups: </h2>
+<table>
+    <thead>
+        <tr>
+            <td>Title</td>
+            <td>Capacity</td>
+            <td>Members</td>
+            <td colspan="2">Actions</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let group of groups">
+            <td>{{ group.title }}</td>
+            <td>{{ group.capacity }}</td>
+            <td>
+                <ul>
+                    <li *ngFor="let member of group.members"> {{member}}</li>
+                </ul>
+            </td>
+            <td><button (click)="deleteGroup(group)">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
