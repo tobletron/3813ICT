@@ -3,9 +3,16 @@
 </h2>
 <h1>Welcome {{username}}, to the {{channelTitle}} channel</h1>
 
+<form>
+    <label for="messageContent">New Message</label>
+    <input type="text" [(ngModel)]="messageContent" name="messageContent">
+
+    <button (click)="sendMessage()">Send</button>
+</form>
+
 <div>
     <div *ngFor="let message of messages">
-
+        <li>{{message}}</li>
     </div>
 </div>
 

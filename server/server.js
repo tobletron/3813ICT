@@ -3,8 +3,15 @@ const app = express();
 const cors = require("cors"); //cross origin resource sharing 
 var http = require("http").Server(app); //http
 const fs = require("fs");
+const io = require('socket.io')(http, {
+  cors: {
+    origin: "http://localhost:4200",
+    methods: ["GET", "POST"],
+  }
+});
 
 const server = require('./listen.js'); //listen.js
+const sockets = require('./socket.js'); //socket.js
 
 const bodyParser = require("body-parser"); //parse requests
 
@@ -12,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
-
+sockets.connect(io, 3000); //setup socket
 server.listen(http, 3000); //start server
 
 const MongoClient = require('mongodb').MongoClient;

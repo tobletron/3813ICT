@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SocketService } from '../services/socket.service';
 
 @Component({
   selector: 'app-channel',
@@ -13,10 +14,12 @@ export class ChannelComponent implements OnInit {
   group: string = "";
   channelTitle: string = "";
 
-  messages: any = [];
+  messageContent: any = "";
+  messages: string[] = [];
+  ioConnection: any;
   
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private socketService: SocketService) { }
 
   ngOnInit(): void {
     //user authentication p1
@@ -40,11 +43,31 @@ export class ChannelComponent implements OnInit {
     this.userRole = sessionStorage.getItem('role')!;
     this.group = sessionStorage.getItem('group')!;
     this.channelTitle = sessionStorage.getItem('channel')!;
+
+    this.initIoConnection();
+  }
+
+  private initIoConnection() {
+    this.socketService.initSocket();
+    this.ioConnection = this.socketService.getMessage()
+      .subscribe((message:any) => {
+        this.messages.push(message);
+      });
   }
 
   goBack() {
     sessionStorage.removeItem('channel');
     this.router.navigateByUrl("/group");
+  }
+
+  sendMessage() {
+    if (this.messageContent) {
+      this.socketService.send(this.messageContent);
+      this.messageContent = null;
+    }
+    else {
+      console.log("no message to send");
+    }
   }
 
 }
