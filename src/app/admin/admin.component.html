@@ -23,5 +23,8 @@
         <option *ngIf="userRole == 'SuperAdmin'" value="SuperAdmin">Super Admin</option>
     </select><br>
 
+    <label for="profilePic">Profile Picture: </label>
+    <input type="file" name="profilePic" (change)="onFileSelection($event)">
+
     <button (click)="submitForm(inputUser)">Submit</button>
 </form>

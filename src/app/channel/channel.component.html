@@ -4,13 +4,13 @@
 <h1>Welcome {{username}}, to the {{channelTitle}} channel</h1>
 
 <form>
-    <label for="messageContent">New Message</label>
-    <input type="text" [(ngModel)]="messageContent" name="messageContent">
+    <label for="messageContent">New Message</label><br>
+    <input type="text" [(ngModel)]="messageContent" name="messageContent"> <br>
 
     <button (click)="sendMessage()">Send</button>
 </form>
 
-<div>
+<div class="messageArea">
     <div *ngFor="let message of messages">
         <li>{{message}}</li>
     </div>

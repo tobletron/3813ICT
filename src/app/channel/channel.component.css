@@ -23,6 +23,14 @@ h1, h2 {
   padding: 15px;
 }
 
+form {
+  margin: 20px;
+  border: 1px;
+  border-color: black;
+  border-style: solid;
+  text-align: center;
+}
+
 .message {
   border: 1px;
   border-color: black;

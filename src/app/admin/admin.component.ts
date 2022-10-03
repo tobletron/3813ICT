@@ -15,7 +15,9 @@ const httpOptions = {
 export class AdminComponent implements OnInit {
 
   //form variables
-  inputUser = { username: "", email: "", password: 123, role: ""};
+  inputUser = { username: "", email: "", password: 123, role: "", selectedFile: ""};
+
+  selectedFile: any = null;
 
   inputUsername: string = "";
   inputEmail: string = "";
@@ -28,6 +30,8 @@ export class AdminComponent implements OnInit {
 
   //http url
   url = "http://localhost:3000";
+
+  imagePath: any = "";
 
   userBeingUpdated = false;
 
@@ -54,7 +58,10 @@ export class AdminComponent implements OnInit {
     
   }
 
+  imageObj: any = {};
+
   submitForm(user: any) {
+
 
     //UPDATE USER
     if (this.userBeingUpdated){ 
@@ -96,6 +103,10 @@ export class AdminComponent implements OnInit {
       });
       this.router.navigateByUrl("/account");
     }
+  }
+
+  onFileSelection(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 
 }

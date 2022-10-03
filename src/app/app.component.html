@@ -1,14 +1,16 @@
+<!-- NAVBAR TO BE DISPLAYED ON EVERY PAGE -->
 <nav>
   <ul>
     <li>  
-      <a href="#" routerLink="/login" class="navBarItem">Login</a>
-    </li>
-    <li>  
-      <a href="#" (click)="checkLogin()" routerLink="/account" class="navBarItem">Account</a>
-    </li>
-    <li>  
+      <a *ngIf="!userValid" routerLink="/login" class="navBarItem">Login</a>
       <a *ngIf="userValid" role="button" (click)="logout()">Logout</a>
+
     </li>
+    <li>  
+      <a (click)="checkLogin()" routerLink="/account" class="navBarItem">Account</a>
+    </li>
+      
+    
   </ul>
 
 </nav>

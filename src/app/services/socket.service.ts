@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, observable } from 'rxjs';
-import { io } from 'socket.io-client';
+import { BehaviorSubject, Observable, observable } from 'rxjs';
+import io, { Socket } from 'socket.io-client';
 
 const url = "http://localhost:3000";
 
@@ -9,22 +9,27 @@ const url = "http://localhost:3000";
 })
 export class SocketService {
 
-  private socket: any;
+  socket: any;
 
-  constructor() { }
 
-  initSocket() {
+  constructor() { 
+    this.getMessage();
+  }
+
+  initSocket(room: any) {
     this.socket = io(url);
-    return ()=> { this.socket.disconnect(); }
   }
 
-  send(message: string) {
-    this.socket.emit('message', message);
+  send(message: string, username: string) {
+    this.socket.emit('message', message, username);
   }
+
 
   getMessage() {
     return new Observable(observer => {
-      this.socket.on('message', (data: any) => {observer.next(data)});
+      this.socket.on('message', (data: any) => {
+        observer.next(data)
+      });
     });
   }
 }

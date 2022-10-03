@@ -1,40 +1,61 @@
-<h1> Create a Group </h1>
+<!-- EXISTING GROUP OPERATIONS -->
+<div>
+    <h2>List of existing groups: </h2>
+    <table>
+        <thead>
+            <tr>
+                <td>Title</td>
+                <td>Members</td>
+                <td colspan="2">Actions</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let group of groups">
+                <td>{{ group.title }}</td>
+                <td>
+                    <ul>
+                        <li *ngFor="let member of group.members">
+                            {{member}}
+                            <span>
+                                <button *ngIf="memberRoleCheck(member) == true" (click)="removeUserFromGroup(member, group)">Remove {{member}} from {{group.title}}</button>
+                            </span>
+                            <br>
+                         </li>
+                    </ul>
+                </td>
 
-<form>
-    <label for="title">Group Title: </label>
-    <input type="text" name="title" [(ngModel)]="title"><br>
+                <td><button (click)="deleteGroup(group)">Delete Group: {{group.title}}</button></td>
+                <td>
+                    <form>
+                        <select placeholder="Add Member" name="addUser" [(ngModel)]="addUser">
+                            <option *ngFor="let user of users" value="{{user.username}}">{{user.username}}</option>
+                        </select>
+                        <button (click)="addMembers(addUser, group)">Add</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-    <label for="capacity">Group Capacity: </label>
-    <input type="number" name="capacity" [(ngModel)]="capacity"><br>
 
-    <label for="members">Add Members: </label>
-    <select name="members" [(ngModel)]="members" multiple>
-        <option *ngFor="let user of users" value="{{user.username}}">{{user.username}}</option>
-    </select><br>
+<!-- NEW GROUP OPERATIONS -->
+<div>
+    <h1> Create a Group </h1>
 
-    <button (click)="createGroup()">Create group</button>
-</form>
+    <form>
+        <label for="title">Group Title: </label>
+        <input type="text" name="title" [(ngModel)]="title"><br>
 
-<h2>List of existing groups: </h2>
-<table>
-    <thead>
-        <tr>
-            <td>Title</td>
-            <td>Capacity</td>
-            <td>Members</td>
-            <td colspan="2">Actions</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let group of groups">
-            <td>{{ group.title }}</td>
-            <td>{{ group.capacity }}</td>
-            <td>
-                <ul>
-                    <li *ngFor="let member of group.members"> {{member}}</li>
-                </ul>
-            </td>
-            <td><button (click)="deleteGroup(group)">Delete</button></td>
-        </tr>
-    </tbody>
-</table>
+        <label for="members">Add Members: </label>
+        <select name="members" [(ngModel)]="members" multiple>
+            <option *ngFor="let user of usersForCreate" value="{{user.username}}">{{user.username}}</option>
+        </select><br>
+
+        <button (click)="createGroup()">Create group</button>
+    </form>
+</div>
+
+
+
+

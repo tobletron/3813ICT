@@ -15,8 +15,8 @@
     <tbody>
         <tr *ngFor="let channel of channels">
             <td>{{ channel.title }}</td>
-            <td *ngIf="userRole == 'SuperAdmin' || userRole == 'GroupAdmin'">
-                <button (click)="deleteChannel(channel)">Delete Channel</button>
+            <td>
+                <button *ngIf="userRole == 'SuperAdmin' || userRole == 'GroupAdmin'" (click)="deleteChannel(channel)">Delete Channel</button>
                 <button (click)="enterChannel(channel)">Enter</button>
             </td>
         </tr>
@@ -28,10 +28,10 @@
 
 
 
-<div class="adminOps" *ngIf="userRole=='SuperAdmin' || userRole=='GroupAdmin'">
+<div class="adminOps" *ngIf="userRole=='SuperAdmin' || userRole=='GroupAdmin' || userRole=='GroupAssis'">
     <p>Admin Operations: {{userRole}}</p>
     <div>
-        <button (click)="createChannel()">Create new Channel</button><br>
-        <button (click)="removeGroup()">Remove this Group</button>    
+        <button *ngIf="userRole=='SuperAdmin' || userRole=='GroupAdmin' || userRole=='GroupAssis'" (click)="createChannel()">Create new Channel</button><br>
+        <button *ngIf="userRole=='SuperAdmin' || userRole=='GroupAdmin'" (click)="removeGroup()">Remove this Group</button>    
     </div>
 </div>

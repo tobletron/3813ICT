@@ -1,6 +1,12 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Socket } from 'socket.io-client';
 import { SocketService } from '../services/socket.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Component({
   selector: 'app-channel',
@@ -17,9 +23,17 @@ export class ChannelComponent implements OnInit {
   messageContent: any = "";
   messages: string[] = [];
   ioConnection: any;
+
+  url = "http://localhost:3000";
+
+  history: any = [];
+
+  insertData = false;
+
+
   
 
-  constructor(private router: Router, private socketService: SocketService) { }
+  constructor(private router: Router, private socketService: SocketService, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     //user authentication p1
@@ -44,11 +58,18 @@ export class ChannelComponent implements OnInit {
     this.group = sessionStorage.getItem('group')!;
     this.channelTitle = sessionStorage.getItem('channel')!;
 
+
+    this.insertData = false;
+
+    console.log(sessionStorage.getItem('channel'));
+
+  
     this.initIoConnection();
   }
 
   private initIoConnection() {
-    this.socketService.initSocket();
+    this.socketService.initSocket(this.channelTitle);
+
     this.ioConnection = this.socketService.getMessage()
       .subscribe((message:any) => {
         this.messages.push(message);
@@ -62,7 +83,7 @@ export class ChannelComponent implements OnInit {
 
   sendMessage() {
     if (this.messageContent) {
-      this.socketService.send(this.messageContent);
+      this.socketService.send(this.messageContent, this.username);
       this.messageContent = null;
     }
     else {

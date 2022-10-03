@@ -97,8 +97,20 @@ export class GroupComponent implements OnInit {
   }
 
   enterChannel(channel: any) {
-    sessionStorage.setItem("channel", channel.title);
-    this.router.navigateByUrl("/channel");
+    var valid = false;
+    for (var index in channel.members) {
+      if (channel.members[index] == this.username){
+        valid = true;
+      }
+    }
+    if (valid == false ) {
+      alert("You do not have permission to enter this channel");
+    }
+    else {
+      sessionStorage.setItem("channel", channel.title);
+      this.router.navigateByUrl("/channel");
+    }
+    
   }
 
 
