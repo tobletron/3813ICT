@@ -26,9 +26,6 @@ export class ChannelComponent implements OnInit {
 
   url = "http://localhost:3000";
 
-  history: any = [];
-
-  insertData = false;
 
 
   
@@ -58,10 +55,16 @@ export class ChannelComponent implements OnInit {
     this.group = sessionStorage.getItem('group')!;
     this.channelTitle = sessionStorage.getItem('channel')!;
 
-
-    this.insertData = false;
-
-    console.log(sessionStorage.getItem('channel'));
+    //get chat history
+    this.httpClient.get(this.url + "/api/getChats").subscribe((result: any) => {
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].channel == this.channelTitle){
+          for (let j=0; j < result[i].chats.length; j++){
+            this.messages.push(result[i].chats[j]);
+          }
+        }
+      }
+    });
 
   
     this.initIoConnection();
@@ -73,6 +76,13 @@ export class ChannelComponent implements OnInit {
     this.ioConnection = this.socketService.getMessage()
       .subscribe((message:any) => {
         this.messages.push(message);
+        let chatsObj = { channel: this.channelTitle, chats: this.messages }
+        //save the history
+        this.httpClient.post(this.url + "/api/insertChats", JSON.stringify(chatsObj), httpOptions).subscribe((result: any) => {
+          if (result == true) {
+            console.log("db updated");
+          }
+        })
       });
   }
 
@@ -89,6 +99,18 @@ export class ChannelComponent implements OnInit {
     else {
       console.log("no message to send");
     }
+  }
+
+  clearHistory() {
+    let chatsObj = { channel: this.channelTitle, chats: this.messages }
+    this.httpClient.post(this.url + "/api/deleteChats", JSON.stringify(chatsObj), httpOptions).subscribe((result: any) => {
+      if (!result) {
+        alert("there is no history to delete");
+      }
+      else {
+        window.location.reload();
+      }
+    })
   }
 
 }

@@ -15,4 +15,7 @@
         <li>{{message}}</li>
     </div>
 </div>
+<div *ngIf="userRole == 'SuperAdmin'">
+    <button (click)="clearHistory()">Clear History</button>
+</div>
 

@@ -49,6 +49,10 @@ MongoClient.connect(url, function(err, client) {
   require('./routes/ChannelRoutes/getChannels')(app, db); //retrieve a list of all channels
   require('./routes/ChannelRoutes/deleteChannel')(app, db); //delete a channel
 
+  //chat history routes
+  require('./routes/ChatHistoryRoutes/getChatHistory')(app, db); //retrieve chat history
+  require('./routes/ChatHistoryRoutes/insertChatHistory')(app, db); //insert chat history
+  require('./routes/ChatHistoryRoutes/deleteChatHistory')(app, db); //delete chat history
 });
 
 
