@@ -67,7 +67,7 @@ export class ChannelComponent implements OnInit {
     this.initIoConnection();
   }
 
-  private initIoConnection() {
+  initIoConnection() {
     this.socketService.initSocket(this.channelTitle);
 
     this.ioConnection = this.socketService.getMessage()

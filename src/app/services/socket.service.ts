@@ -18,6 +18,7 @@ export class SocketService {
 
   initSocket(room: any) {
     this.socket = io(url);
+    this.socket.emit('room', room);
   }
 
   send(message: string, username: string) {
