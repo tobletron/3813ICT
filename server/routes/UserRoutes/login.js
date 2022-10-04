@@ -1,4 +1,9 @@
 module.exports = function(app, db){
+
+    /* This is the code that is run when the user submits their username and password. It checks the
+    database to see if the username and password combination is valid. If it is, it sends a response
+    to the client saying that the username and password are valid. If it is not, it sends a response
+    to the client saying that the username and password are not valid. */
     app.post("/api/auth", async (req, res) => {
 
         var usernameSubmission = req.body.username;
@@ -18,4 +23,5 @@ module.exports = function(app, db){
             }
         });
     });
+
 }

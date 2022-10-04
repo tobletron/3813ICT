@@ -1,4 +1,7 @@
 module.exports = function (app, db) {
+
+    /* This is the code that is executed when the user clicks the submit button on the signup page. It
+    takes the information from the form and inserts it into the database. */
     app.post("/api/insertUser", (req, res) => {
         var userObj = { username: req.body.username, email: req.body.email, password: req.body.password, role: req.body.role};
         var uname = req.body.username;
@@ -24,6 +27,6 @@ module.exports = function (app, db) {
         else {
             res.send(false);
         }
-        
     });
+
 }

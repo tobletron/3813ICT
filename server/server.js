@@ -26,6 +26,8 @@ const dbName = "myAssignmentDb";
 sockets.connect(io, 3000); //setup socket
 server.listen(http, 3000); //start server
 
+/* This is the main function of the server. It connects to the database and then sets up all the
+routes. */
 MongoClient.connect(url, function(err, client) {
   if (err) throw err;
   const db = client.db(dbName);
