@@ -70,6 +70,7 @@ export class AccountComponent implements OnInit {
         }
       });
     }
+    window.location.reload();
   }
 
   deleteUser(user: any) {

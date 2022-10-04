@@ -19,11 +19,17 @@ export class SocketService {
   initSocket(room: any, username: any) {
     this.socket = io(url);
     this.socket.emit('room', room, username);
+    return()=>{this.socket.disconnect();}
   }
 
   send(message: string, username: string) {
     this.socket.emit('message', message, username);
   }
+
+  disconnectUser() {
+    this.socket.disconnect();
+  }
+
 
   getUserDisconnected() {
     return new Observable(observer => {

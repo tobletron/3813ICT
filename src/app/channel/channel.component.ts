@@ -99,6 +99,7 @@ export class ChannelComponent implements OnInit {
   }
 
   goBack() {
+    this.socketService.disconnectUser();
     sessionStorage.removeItem('channel');
     this.router.navigateByUrl("/group");
   }
