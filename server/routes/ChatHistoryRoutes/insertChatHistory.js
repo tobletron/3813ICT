@@ -1,10 +1,12 @@
 module.exports = function (app, db) {
 
    
+    /* This is the code that is executed when the server receives a POST request to the
+    /api/insertChats endpoint. It takes the channel and chats from the request body and inserts them
+    into the database. */
     app.post("/api/insertChats", (req, res) => {
-        var chatObj = { channel: req.body.channel, chats: req.body.chats }
 
-        var chatExists = false;
+        var chatObj = { channel: req.body.channel, chats: req.body.chats }
         var query = { channel: req.body.channel };
 
         //check if history already exists

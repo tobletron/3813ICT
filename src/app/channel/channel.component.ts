@@ -24,6 +24,8 @@ export class ChannelComponent implements OnInit {
   messages: string[] = [];
   ioConnection: any;
 
+  userJoined: string = "";
+
   url = "http://localhost:3000";
 
 
@@ -71,7 +73,17 @@ export class ChannelComponent implements OnInit {
   }
 
   initIoConnection() {
-    this.socketService.initSocket(this.channelTitle);
+    this.socketService.initSocket(this.channelTitle, this.username);
+
+    this.ioConnection = this.socketService.getUsersJoined()
+      .subscribe((content: any) => {
+        this.userJoined = content;
+      });
+
+      this.ioConnection = this.socketService.getUserDisconnected()
+      .subscribe((content: any) => {
+        this.userJoined = content;
+      });
 
     this.ioConnection = this.socketService.getMessage()
       .subscribe((message:any) => {
@@ -101,7 +113,13 @@ export class ChannelComponent implements OnInit {
     }
   }
 
+  /**
+   * This function is called when the user clicks the "Clear History" button. It sends a post request
+   * to the server with the channel name and the messages array. The server then deletes the messages
+   * from the database
+   */
   clearHistory() {
+
     let chatsObj = { channel: this.channelTitle, chats: this.messages }
     this.httpClient.post(this.url + "/api/deleteChats", JSON.stringify(chatsObj), httpOptions).subscribe((result: any) => {
       if (!result) {
@@ -110,7 +128,8 @@ export class ChannelComponent implements OnInit {
       else {
         window.location.reload();
       }
-    })
+    });
+
   }
 
 }

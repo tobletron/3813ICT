@@ -16,20 +16,35 @@ export class SocketService {
     this.getMessage();
   }
 
-  initSocket(room: any) {
+  initSocket(room: any, username: any) {
     this.socket = io(url);
-    this.socket.emit('room', room);
+    this.socket.emit('room', room, username);
   }
 
   send(message: string, username: string) {
     this.socket.emit('message', message, username);
   }
 
+  getUserDisconnected() {
+    return new Observable(observer => {
+      this.socket.on('userDisconnected', (data: any) => {
+        observer.next(data);
+      });
+    });
+  }
+
+  getUsersJoined() {
+    return new Observable(observer => {
+      this.socket.on('userJoined', (data: any) => {
+        observer.next(data);
+      });
+    });
+  }
 
   getMessage() {
     return new Observable(observer => {
       this.socket.on('message', (data: any) => {
-        observer.next(data)
+        observer.next(data);
       });
     });
   }

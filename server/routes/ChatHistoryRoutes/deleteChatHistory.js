@@ -1,6 +1,7 @@
 module.exports = function (app, db) {
 
    
+    /* This is the code that deletes the chat history. */
     app.post("/api/deleteChats", (req, res) => {
         
         var query = { channel: req.body.channel };
