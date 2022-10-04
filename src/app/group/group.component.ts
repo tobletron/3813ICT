@@ -49,6 +49,7 @@ export class GroupComponent implements OnInit {
     this.httpClient.get(this.url + "/api/getChannels").subscribe((result: any) => {
       for (let i = 0; i < result.length; i++) {
         if (result[i].groupName == this.group){
+          console.log(result[i]);
           this.channels.push(result[i]);
         }
       }
@@ -92,14 +93,17 @@ export class GroupComponent implements OnInit {
   }
 
   goBack() {
-    sessionStorage.removeItem('group');
     this.router.navigateByUrl("/account");
+    sessionStorage.removeItem('group');
   }
 
   enterChannel(channel: any) {
     var valid = false;
     for (var index in channel.members) {
       if (channel.members[index] == this.username){
+        valid = true;
+      }
+      else if (this.userRole == "SuperAdmin" || this.userRole == "SuperAdmin"){
         valid = true;
       }
     }

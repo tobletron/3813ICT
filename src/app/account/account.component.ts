@@ -20,6 +20,8 @@ export class AccountComponent implements OnInit {
   userRole: string = "";
   users: any = [];
   groups: any = [];
+  groupTitles: any = [];
+  channels: any = [];
 
   userToDelete: any = {};
 
@@ -49,12 +51,30 @@ export class AccountComponent implements OnInit {
       this.httpClient.get(this.url + "/api/getGroups").subscribe((result: any) => {
         for (let i = 0; i < result.length; i++) {
           this.groups.push(result[i]);
+          this.groupTitles.push(result[i].title);
         }
       });
       //get users
       this.httpClient.get(this.url + "/api/getUsers").subscribe((result: any) => {
         for (let i = 0; i < result.length; i++) {
           this.users.push(result[i]);
+        }
+      });
+      //get channels, delete any lingering channels with no groups
+      this.httpClient.get(this.url + "/api/getChannels").subscribe((result: any) => {
+        for (let i=0; i < result.length; i++) {
+          
+          if (this.groupTitles.includes(result[i].groupName)) {
+            this.channels.push(result[i]);
+          }
+          else {
+            //group no longer exists, delete the channel
+            this.httpClient.post(this.url + "/api/deleteChannel", JSON.stringify(result[i]), httpOptions).subscribe((data: any) => {
+              if (data) {
+                console.log("deleted a channel");
+              }
+            });
+          }
         }
       });
     }    
@@ -70,7 +90,6 @@ export class AccountComponent implements OnInit {
         }
       });
     }
-    window.location.reload();
   }
 
   deleteUser(user: any) {
