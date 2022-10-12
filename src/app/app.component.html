@@ -3,7 +3,7 @@
   <ul>
     <li>  
       <a *ngIf="!userValid" routerLink="/login" class="navBarItem">Login</a>
-      <a *ngIf="userValid" role="button" (click)="logout()">Logout</a>
+      <a *ngIf="userValid" role="button" (click)="logout()" class="turnWhite">Logout</a>
 
     </li>
     <li>  

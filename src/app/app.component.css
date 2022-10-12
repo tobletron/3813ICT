@@ -1,10 +1,14 @@
 nav {
     text-align: center;
     margin: auto;
-    background-color: #DCD7C9;
-    border: 1px;
-    border-color: #2C3639;
+    background-color: #415895;
+    border: 2px;
+    border-color: #657087;
     border-style: solid;
+}
+
+.turnWhite {
+  color: #F4FbFA;
 }
 
 ul {
@@ -18,24 +22,24 @@ ul {
   }
 
 a:link {
-    color: #2C3639;
+    color: #F4FbFA;
     text-decoration: none;
   }
   
   a:visited {
-    color: #2C3639;
+    color: #F4FbFA;
     text-decoration: none;
 
   }
   
   a:hover {
-    color: #2C3639;
+    color: #F4FbFA;
     text-decoration: none;
-    background-color: #A5C9CA;
   }
   
   a:active {
-    color: #2C3639;
+    color: #F4FbFA;
     text-decoration: none;
 
   }
+

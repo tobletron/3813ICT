@@ -1,15 +1,26 @@
 form {
-    width: 30%;
+    width: 70%;
     margin: auto;
-    margin-top: 20vh;
     padding-top: 25px;
-    border: 1px;
-    border-color: black;
-    border-style: solid;
 }
 
 div {
-    text-align: center;
     padding: 10px;
+    margin: auto;
+    text-align: center;
 }
+
+input {
+    height: 30px;
+    text-align: center;
+    width: 50%;
+}
+
+.button {
+  width: 75px;
+  color: #F4FbFA;
+  background-color: #6B9853;
+  border-radius: 12px;
+}
+
 

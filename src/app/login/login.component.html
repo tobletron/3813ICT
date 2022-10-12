@@ -1,17 +1,16 @@
-
+<h1>Angular / NodeJS Chat Application</h1>
+<h2>3813ICT ASSIGNMENT TOBY MURFET</h2>
 <form action="http://localhost:3000/api/auth" method="POST" (ngSubmit)="submit()">
 
     <div>
-        <label for="username">Username:</label>
-        <input type="text" [(ngModel)]="username" name="username">
+        <input type="text" [(ngModel)]="username" name="username" placeholder="Enter Username">
     </div>
     
     <div>
-        <label for="username">Password:</label>
-        <input type="number" [(ngModel)]="password" name="password">
+        <input type="number" [(ngModel)]="password" name="password" placeholder="Enter Password">
     </div>
 
     <div>
-        <input type="submit" value="submit">
+        <input type="submit" value="submit" class="button">
     </div>
 </form>
