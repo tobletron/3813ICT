@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors"); //cross origin resource sharing 
 var http = require("http").Server(app); //http
 const fs = require("fs");
+const path = require("path");
 const io = require('socket.io')(http, {
   cors: {
     origin: "http://localhost:4200",
@@ -54,5 +55,6 @@ MongoClient.connect(url, function(err, client) {
   require('./routes/ChatHistoryRoutes/insertChatHistory')(app, db); //insert chat history
   require('./routes/ChatHistoryRoutes/deleteChatHistory')(app, db); //delete chat history
 });
+
 
 

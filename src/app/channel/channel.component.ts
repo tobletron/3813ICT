@@ -15,25 +15,27 @@ const httpOptions = {
 })
 export class ChannelComponent implements OnInit {
 
+  /* declare variables */
   username: string = "";
   userRole: string = "";
   group: string = "";
   channelTitle: string = "";
-
   messageContent: any = "";
   messages: string[] = [];
   ioConnection: any;
-
   userJoined: string = "";
-
   url = "http://localhost:3000";
-
-
-
-  
 
   constructor(private router: Router, private socketService: SocketService, private httpClient: HttpClient) { }
 
+  /**
+   * This function is called when the component is initialized. It checks if the user is logged in, and if not, redirects 
+   * them to the login page. 
+   * It also checks if the user has a group and channel selected, and if not, redirects them to the group page.
+   *  It then sets the username, user role, group, and channel title variables to the values stored in session storage. 
+   * It then gets the chat history from the database and stores it in the messages array. Finally, it calls the
+   * initIoConnection() function
+   */
   ngOnInit(): void {
     //user authentication p1
     if (!sessionStorage.getItem('username')) {
@@ -72,6 +74,10 @@ export class ChannelComponent implements OnInit {
     this.initIoConnection();
   }
 
+ /**
+  * The function is called when the user joins the channel. It initializes the socket connection and
+  * subscribes to the events emitted by the server
+  */
   initIoConnection() {
     this.socketService.initSocket(this.channelTitle, this.username);
 
@@ -98,12 +104,20 @@ export class ChannelComponent implements OnInit {
       });
   }
 
+/**
+ * It disconnects the user from the socket, removes the channel from the session storage and navigates
+ * the user to the group page
+ */
   goBack() {
     this.socketService.disconnectUser();
     sessionStorage.removeItem('channel');
     this.router.navigateByUrl("/group");
   }
 
+  /**
+   * If the messageContent property of the component is not empty, then send the message to the server
+   * using the socketService
+   */
   sendMessage() {
     if (this.messageContent) {
       this.socketService.send(this.messageContent, this.username);

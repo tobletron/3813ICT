@@ -13,28 +13,25 @@ const httpOptions = {
 })
 export class AdminGroupComponent implements OnInit {
 
-  //logged in user data 
+  /* variable intialisation */
   username = "";
   userRole = "";
-
-  //form data
   title: string = "";
   members: any = [];
-
   users: any = [];
   groups: any = [];
-
   usersForCreate: any = [];
   adminUsers: any = [];
-
   addUser: any = "";
-
   url = "http://localhost:3000";
 
   constructor(private router: Router, private httpClient: HttpClient) { }
 
+  
+  /**
+   * It gets the users and groups from the database and stores them in the users and groups arrays
+   */
   ngOnInit(): void {
-    //user authentication p1
     if (!sessionStorage.getItem('username')) {
       sessionStorage.clear();
       alert("Please log in first");
@@ -44,16 +41,13 @@ export class AdminGroupComponent implements OnInit {
     this.username = sessionStorage.getItem('username')!;
     this.userRole = sessionStorage.getItem('role')!;
 
-    //user authentication p2
     if((this.userRole == "SuperAdmin") || (this.userRole == "GroupAdmin")) {
-      //user has permission
     }
     else {
       alert("You do not have permission to use this page");
       this.router.navigateByUrl('/account');
     }
 
-    //get users
     this.httpClient.get(this.url + "/api/getUsers").subscribe((result: any) => {
       for (let i = 0; i < result.length; i++) {
         if (result[i].role == "Member" || result[i].role == "GroupAssis") {
@@ -63,7 +57,6 @@ export class AdminGroupComponent implements OnInit {
       }
     });
 
-    //get groups
     this.httpClient.get(this.url + "/api/getGroups").subscribe((result: any) => {
       for (let i = 0; i < result.length; i++) {
         this.groups.push(result[i]);
@@ -71,6 +64,10 @@ export class AdminGroupComponent implements OnInit {
     });
   }
 
+ /**
+  * The function creates a group by adding the super and group admins to the group and then sending a
+  * post request to the server to create the group
+  */
   createGroup() {
     //add super and group admins
     for (var index in this.users) {
@@ -91,6 +88,10 @@ export class AdminGroupComponent implements OnInit {
     });
   }
 
+ /**
+  * This function takes in a group object and sends it to the backend to be deleted
+  * @param {any} group - any - this is the group that is being deleted.
+  */
   deleteGroup(group: any) {
     this.httpClient.post(this.url + "/api/deleteGroup", JSON.stringify(group), httpOptions).subscribe((data: any) => {
       if (data == true) {
@@ -100,6 +101,11 @@ export class AdminGroupComponent implements OnInit {
     });
   }
 
+  /**
+   * This function removes a user from a group
+   * @param {any} user - the user to be removed from the group
+   * @param {any} group - the group that the user is being removed from
+   */
   removeUserFromGroup(user: any, group: any) {
     var newMembers: any = [];
     var counter = 0;
@@ -118,6 +124,12 @@ export class AdminGroupComponent implements OnInit {
 
   }
 
+ /**
+  * It checks if the user is a SuperAdmin or GroupAdmin. If the user is a SuperAdmin or GroupAdmin, it
+  * returns false. If the user is not a SuperAdmin or GroupAdmin, it returns true
+  * @param {any} member - The member to be checked.
+  * @returns A boolean value.
+  */
   memberRoleCheck(member: any) {
     for (var index in this.users) {
       if (this.users[index].username == member) {
@@ -130,6 +142,11 @@ export class AdminGroupComponent implements OnInit {
   }
 
 
+  /**
+   * This function adds a member to a group
+   * @param {any} user - the user to be added to the group
+   * @param {any} group - the group that the user is being added to
+   */
   addMembers(user: any, group: any) {
     if (this.memberRoleCheck(user)){ //if user is not an admin
       if (group.members.includes(user)){
@@ -157,6 +174,5 @@ export class AdminGroupComponent implements OnInit {
       alert("error adding user");
     }
   }
-
 
 }

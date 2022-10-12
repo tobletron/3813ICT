@@ -14,18 +14,19 @@ const httpOptions = {
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
 })
+
+/* This class is used to display the account page, and it contains functions that allow the admin to
+delete users, groups, and channels */
 export class AccountComponent implements OnInit {
 
+  /* variable intialisation */
   username: string = "";
   userRole: string = "";
   users: any = [];
   groups: any = [];
   groupTitles: any = [];
   channels: any = [];
-
   userToDelete: any = {};
-
-
   url = "http://localhost:3000";
 
 
@@ -33,6 +34,11 @@ export class AccountComponent implements OnInit {
   }
 
 
+  /**
+   * This function is called when the page is loaded. It checks if the user is logged in, and if not,
+   * redirects them to the login page. If the user is logged in, it checks their role and loads the
+   * appropriate data
+   */
   ngOnInit() {
     if (sessionStorage.getItem('group')){
       sessionStorage.removeItem('group');
@@ -92,6 +98,12 @@ export class AccountComponent implements OnInit {
     }
   }
 
+  /**
+   * The function takes in a user object, and then sends a post request to the server with the user
+   * object as the body. If the server returns true, then the user has been deleted, and the page is
+   * reloaded
+   * @param {any} user - any - this is the user object that is passed in from the component.
+   */
   deleteUser(user: any) {
     this.httpClient.post(this.url + "/api/deleteUser", JSON.stringify(user), httpOptions).subscribe((data: any) => {
       if (data == true) {
@@ -101,6 +113,12 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  /**
+   * The function takes in a user object, and then sets the sessionStorage items to the values of the
+   * user object
+   * @param {any} user - any - this is the user object that is passed in from the admin.component.html
+   * file.
+   */
   updateUser(user: any) {
     sessionStorage.setItem('inputUsername', user.username);
     sessionStorage.setItem('inputEmail', user.email);
@@ -108,14 +126,24 @@ export class AccountComponent implements OnInit {
     this.router.navigateByUrl("/admin");
   }
 
+  /**
+   * The function createUser() navigates to the admin page
+   */
   createUser() {
     this.router.navigateByUrl("/admin");
   }
 
+  /**
+   * The function createGroup() navigates to the adminGroup page
+   */
   createGroup() {
     this.router.navigateByUrl("/adminGroup");
   }
 
+  /**
+   * This function takes in a group object and sends it to the backend to be deleted
+   * @param {any} group - any - this is the group that is being deleted.
+   */
   deleteGroup(group: any) {
     this.httpClient.post(this.url + "/api/deleteGroup", JSON.stringify(group), httpOptions).subscribe((data: any) => {
       if (data == true) {
@@ -125,6 +153,10 @@ export class AccountComponent implements OnInit {
     });
   }
 
+/**
+ * This function takes in a group object and sets the group title to the session storage
+ * @param {any} group - any - this is the group that the user clicked on.
+ */
   linkToGroup(group: any) {
     if (!group){
       console.log("error in link");
@@ -134,8 +166,5 @@ export class AccountComponent implements OnInit {
       this.router.navigateByUrl("/group");
     }
   }
-
-
-  
 
 }

@@ -13,19 +13,21 @@ const httpOptions = {
 })
 export class GroupComponent implements OnInit {
 
+  /* declare variables */
   group: any = "";
-
   url = "http://localhost:3000";
-
-
-  //logged in user data 
   username = "";
   userRole = "";
-
   channels: any = [];
 
   constructor( private router: Router, private httpClient: HttpClient) { }
 
+ /**
+  * This function is called when the component is initialized. It checks if the user is logged in and
+  * if they are in a group. If they are not logged in, they are redirected to the login page. If they
+  * are not in a group, they are redirected to the account page. If they are logged in and in a group,
+  * the function gets the channels for the group and stores them in the channels array
+  */
   ngOnInit(): void {
 
 
@@ -58,12 +60,17 @@ export class GroupComponent implements OnInit {
   }
 
   
+ /**
+  * The function createChannel() navigates to the adminChannel page
+  */
   createChannel() {
     this.router.navigateByUrl("/adminChannel");
   }
 
+/**
+ * This function removes a group from the database
+ */
   removeGroup() {
-    //get groups
     this.httpClient.get(this.url + "/api/getGroups").subscribe((result: any) => {
       for (let i = 0; i < result.length; i++) {
         if (result[i].title == this.group){
@@ -83,6 +90,10 @@ export class GroupComponent implements OnInit {
     
   }
 
+  /**
+   * This function takes in a channel object and sends it to the backend to be deleted
+   * @param {any} channel - any - this is the channel object that is being passed in.
+   */
   deleteChannel(channel: any) {
     this.httpClient.post(this.url + "/api/deleteChannel", JSON.stringify(channel), httpOptions).subscribe((data: any) => {
       if (data == true) {
@@ -92,11 +103,20 @@ export class GroupComponent implements OnInit {
     });
   }
 
+/**
+ * The goBack() function navigates the user back to the account page and removes the group from session
+ * storage
+ */
   goBack() {
     this.router.navigateByUrl("/account");
     sessionStorage.removeItem('group');
   }
 
+/**
+ * This function checks if the user is a member of the channel they are trying to enter. If they are
+ * not, they are not allowed to enter the channel
+ * @param {any} channel - any - the channel that the user is trying to enter
+ */
   enterChannel(channel: any) {
     var valid = false;
     for (var index in channel.members) {
@@ -116,6 +136,5 @@ export class GroupComponent implements OnInit {
     }
     
   }
-
 
 }

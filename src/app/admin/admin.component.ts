@@ -14,29 +14,27 @@ const httpOptions = {
 })
 export class AdminComponent implements OnInit {
 
-  //form variables
+  /* variable intialisation */
   inputUser = { username: "", email: "", password: 123, role: "", selectedFile: ""};
-
   selectedFile: any = null;
-
   inputUsername: string = "";
   inputEmail: string = "";
   inputPassword: string = "";
   inputRole: string = "";
-
-  //user variables
   username: string = "";
   userRole: string = "";
-
-  //http url
   url = "http://localhost:3000";
-
   imagePath: any = "";
-
   userBeingUpdated = false;
+  imageObj: any = {};
 
   constructor(private router: Router, private httpClient: HttpClient) { }
 
+  /**
+   * This function checks if the user is logged in, if not, it redirects them to the login page. If the
+   * user is logged in, it sets the username and user role to the session storage values. If the user
+   * is updating a user, it sets the input values to the session storage values
+   */
   ngOnInit(): void {
     //check user is logged in
     if (!sessionStorage.getItem('username')) {
@@ -58,11 +56,13 @@ export class AdminComponent implements OnInit {
     
   }
 
-  imageObj: any = {};
 
+  /**
+   * If the user is being updated, delete the existing user and insert the updated user. If the user is
+   * being created, insert the user
+   * @param {any} user - any - this is the user object that is being passed in from the form.
+   */
   submitForm(user: any) {
-
-
     //UPDATE USER
     if (this.userBeingUpdated){ 
       //delete the existing user

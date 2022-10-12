@@ -9,6 +9,8 @@ module.exports = function(app, db){
         var usernameSubmission = req.body.username;
         var passwordSubmission = req.body.password;
 
+        console.log("Logging in user: ", usernameSubmission);
+
         userObject = {username: usernameSubmission, password: passwordSubmission};
         
         const collection = db.collection("users");
