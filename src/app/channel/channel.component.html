@@ -10,10 +10,19 @@
     <button (click)="sendMessage()">Send</button>
 </form>
 
+<p class="userJoin">{{userJoined}}</p>
 <div class="messageArea">
-    {{userJoined}}
-    <div *ngFor="let message of messages">
-        <li>{{message}}</li>
+
+    <div *ngFor="let message of formattedMessages" class="messageContainer">
+        <div class="splitleft">
+            <img src="assets/profilepic.webp" alt="" class="messageImg">
+            <p>{{message.name}}</p>
+        </div>
+        <div class="splitright">
+            <p class="messageContent">{{message.message}}</p>
+            <p class="messageTime">{{message.time}}</p>
+            
+        </div>
     </div>
 </div>
 <div *ngIf="userRole == 'SuperAdmin'">

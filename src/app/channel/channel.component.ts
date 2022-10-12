@@ -22,6 +22,7 @@ export class ChannelComponent implements OnInit {
   channelTitle: string = "";
   messageContent: any = "";
   messages: string[] = [];
+  formattedMessages: { "name": string, "time": string, "message": string}[] = [];
   ioConnection: any;
   userJoined: string = "";
   url = "http://localhost:3000";
@@ -65,6 +66,7 @@ export class ChannelComponent implements OnInit {
         if (result[i].channel == this.channelTitle){
           for (let j=0; j < result[i].chats.length; j++){
             this.messages.push(result[i].chats[j]);
+            this.formattedMessages.push(this.stringFormatter(result[i].chats[j]));
           }
         }
       }
@@ -101,6 +103,10 @@ export class ChannelComponent implements OnInit {
             console.log("db updated");
           }
         })
+
+        this.formattedMessages.push(this.stringFormatter(message));
+        
+
       });
   }
 
@@ -119,6 +125,7 @@ export class ChannelComponent implements OnInit {
    * using the socketService
    */
   sendMessage() {
+    console.log(this.formattedMessages);
     if (this.messageContent) {
       this.socketService.send(this.messageContent, this.username);
       this.messageContent = null;
@@ -144,6 +151,29 @@ export class ChannelComponent implements OnInit {
         window.location.reload();
       }
     });
+
+  }
+
+  stringFormatter(message: any) {
+    var wordArray = message.split(" ");
+
+    //first word is always username
+    var name = wordArray[0];
+    //third word is always the time
+    var time = wordArray[2];
+
+    var arrayLength = wordArray.length;
+    var numToSlice = arrayLength - 4
+
+    var theMessage = wordArray.splice(4, numToSlice);
+    theMessage = theMessage.join(' ');
+
+    console.log(name, time, theMessage);
+
+    var msgObj = {"name": String(name), "time": String(time), "message": String(theMessage)}
+    
+
+    return msgObj;
 
   }
 

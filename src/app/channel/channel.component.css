@@ -5,7 +5,7 @@ h1, h2 {
 
 .messageArea {
   height: 60vh;
-  width: 75%;
+  width: 45%;
   text-align: center;
   background-color: lightgrey;
   margin: auto;
@@ -33,13 +33,56 @@ form {
   text-align: center;
 }
 
-.message {
-  border: 1px;
-  border-color: black;
-  border-style: solid;
+.messageContainer {
+
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  height: 100px;
+  margin: 10px 0;
 }
 
-a:link {
+
+.messageTime {
+  float: right;
+  color: #aaa;
+}
+
+img {
+  border: 1px solid #ddd; 
+  border-radius: 4px; 
+  width: 50px;
+  float: left;
+  padding: 10px;
+
+}
+
+.split {
+  width: 50%;
+}
+
+.splitleft {
+  border: #aaa;
+  border-radius: 2px;
+  left: 0;
+  float: left;
+}
+
+.splitright {
+  right: 0;
+  float: right;
+}
+
+.messageContent {
+  border: 2px solid #dedede;
+
+}
+
+.userJoin {
+  text-align: center;
+}
+
+/* a:link {
     color: black;
   }
   
@@ -53,4 +96,4 @@ a:link {
   
   a:active {
     color: black;
-  }
+  } */
