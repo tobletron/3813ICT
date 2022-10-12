@@ -2,6 +2,20 @@
 
 >_Toby Murfet_ | _S5136396_ _|_ _Griffith University_ 
 
+## How to Run Application
+
+The application may be viewed and tested by following these steps:
+
+1. Download zip file
+2. Unzip files
+3. In a terminal, navigate to the server folder
+4. Run the following command:
+    node server.js
+5. In another terminal, navigate to the src folder
+6. Run the following command:
+    ng serve
+7. In a browser, go to (http://localhost:4200)
+
 ## Git Repository
 
 The git repository may be viewed at :
